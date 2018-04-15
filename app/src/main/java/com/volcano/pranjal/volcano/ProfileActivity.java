@@ -1,89 +1,34 @@
 package com.volcano.pranjal.volcano;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.View;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileActivity extends AppCompatActivity {
-
-    ImageView imageView;
-    TextView textName, textEmail;
     FirebaseAuth mAuth;
-    private TextView mTextMessage;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_friends);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-                case R.id.navigation_profile:
-                    mTextMessage.setText(R.string.title_profile);
-                    mAuth.signOut();
-                    Intent myIntent = new Intent(ProfileActivity.this, LoginActivity.class);
-                    startActivity(myIntent);
-                    finish();
-                    return true;
-            }
-            return false;
-        }
-    };
-    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_profile_drawer);
         mAuth = FirebaseAuth.getInstance();
-
-        imageView = findViewById(R.id.imageView);
-        textName = findViewById(R.id.textViewName);
-        textEmail = findViewById(R.id.textViewEmail);
-
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        Glide.with(this)
-                .load(user.getPhotoUrl())
-                .into(imageView);
-
-        textName.setText(user.getDisplayName());
-        textEmail.setText(user.getEmail());
-
-        mTextMessage = findViewById(R.id.message);
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        BottomNavigationViewHelper.disableShiftMode(navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        findViewById(R.id.logoutbutton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+            }
+        });
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        //if the user is not logged in
-        //opening the login activity
-        if (mAuth.getCurrentUser() == null) {
-            finish();
-            startActivity(new Intent(this, LoginActivity.class));
-        }
+    private void signOut() {
+        mAuth.signOut();
+        Intent myIntent = new Intent(ProfileActivity.this, LoginActivity.class);
+        startActivity(myIntent);
+        finish();
+    }
+    public void onBackPressed() {
+        super.onBackPressed();
+        //finish();
     }
 }
