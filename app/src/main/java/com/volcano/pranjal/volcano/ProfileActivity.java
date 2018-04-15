@@ -40,6 +40,10 @@ public class ProfileActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_profile:
                     mTextMessage.setText(R.string.title_profile);
+                    mAuth.signOut();
+                    Intent myIntent = new Intent(ProfileActivity.this, LoginActivity.class);
+                    startActivity(myIntent);
+                    finish();
                     return true;
             }
             return false;
