@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "495372930472",
+    "firebase_url": "https://volcano-30472.firebaseio.com",
+    "project_id": "volcano-30472",
+    "storage_bucket": "volcano-30472.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495372930472:android:569b9815358edc8b",
+        "android_client_info": {
+          "package_name": "com.volcano.pranjal.volcano"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495372930472-3bis8tp6cqbs1cd7702bd882soio6am4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.volcano.pranjal.volcano",
+            "certificate_hash": "4a1c383997b88f29a780421e17f4d98b1461e954"
+          }
+        },
+        {
+          "client_id": "495372930472-csp5ft9621p59o978msolk4v402j42ga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1UsW_odB6BiF0iSwqfXuYXNz6S7SZfck"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495372930472-csp5ft9621p59o978msolk4v402j42ga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
