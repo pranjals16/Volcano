@@ -1,7 +1,10 @@
 package com.volcano.pranjal.volcano;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,10 +38,14 @@ public class ProfileActivity extends AppCompatActivity {
                 case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
                     return true;
+                case R.id.navigation_profile:
+                    mTextMessage.setText(R.string.title_profile);
+                    return true;
             }
             return false;
         }
     };
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
+        BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
