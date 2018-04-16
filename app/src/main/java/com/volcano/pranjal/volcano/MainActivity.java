@@ -20,33 +20,6 @@ public class MainActivity extends AppCompatActivity {
     TextView textName, textEmail;
     FirebaseAuth mAuth;
     private TextView mTextMessage;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_friends);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-                case R.id.navigation_profile:
-                    mTextMessage.setText(R.string.title_profile);
-                    //mAuth.signOut();
-                    Intent myIntent = new Intent(MainActivity.this, ProfileActivity.class);
-                    startActivity(myIntent);
-                    finish();
-                    return true;
-            }
-            return false;
-        }
-    };
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +43,32 @@ public class MainActivity extends AppCompatActivity {
         mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.navigation_home:
+                        mTextMessage.setText(R.string.title_home);
+                        break;
+                    case R.id.navigation_dashboard:
+                        mTextMessage.setText(R.string.title_friends);
+                        break;
+
+                    case R.id.navigation_notifications:
+                        mTextMessage.setText(R.string.title_notifications);
+                        break;
+
+                    case R.id.navigation_profile:
+                        mTextMessage.setText(R.string.title_profile);
+                        //mAuth.signOut();
+                        Intent myIntent = new Intent(MainActivity.this, ProfileActivity.class);
+                        startActivity(myIntent);
+                        overridePendingTransition(0, 0);
+                        break;
+                }
+                return true;
+            }
+        });
 
     }
 
