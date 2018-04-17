@@ -50,8 +50,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_home:
                         mTextMessage.setText(R.string.title_home);
                         break;
+
                     case R.id.navigation_dashboard:
                         mTextMessage.setText(R.string.title_friends);
+                        Intent feedIntent = new Intent(MainActivity.this, FeedMainActivity.class);
+                        startActivity(feedIntent);
+                        overridePendingTransition(0, 0);
                         break;
 
                     case R.id.navigation_notifications:
@@ -60,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.navigation_profile:
                         mTextMessage.setText(R.string.title_profile);
-                        //mAuth.signOut();
                         Intent myIntent = new Intent(MainActivity.this, ProfileActivity.class);
                         startActivity(myIntent);
                         overridePendingTransition(0, 0);

@@ -36,6 +36,9 @@ public class ProfileActivity extends AppCompatActivity {
                         break;
                     case R.id.navigation_dashboard:
                         mTextMessage.setText(R.string.title_friends);
+                        Intent feedIntent = new Intent(ProfileActivity.this, FeedMainActivity.class);
+                        startActivity(feedIntent);
+                        overridePendingTransition(0, 0);
                         break;
 
                     case R.id.navigation_notifications:
