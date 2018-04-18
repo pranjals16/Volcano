@@ -10,8 +10,10 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.mindorks.placeholderview.ExpandablePlaceHolderView;
@@ -72,43 +74,6 @@ public class FeedMainActivity extends AppCompatActivity {
                 mExpandableView.addView(new InfoView(mContext, info));
             }
         }
-    }
-    private void setLoadMoreListener(ExpandablePlaceHolderView expandableView) {
-        mOnScrollListener =
-                new PlaceHolderView.OnScrollListener() {
-                    @Override
-                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                        super.onScrolled(recyclerView, dx, dy);
-                        ExpandablePlaceHolderView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                        if (layoutManager instanceof LinearLayoutManager) {
-                            LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
-                            int totalItemCount = linearLayoutManager.getItemCount();
-                            int lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-                            if (!mIsLoadingMore
-                                    && !mNoMoreToLoad
-                                    && totalItemCount > 0
-                                    && totalItemCount == lastVisibleItem + 1) {
-                                mIsLoadingMore = true;
-                                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                                    @Override
-                                    public void run() {
-
-                                        // do api call to fetch data
-
-                                        // example of loading from file:
-                                        for (Feed feed : Utils.loadFeeds(getApplicationContext())) {
-                                            mExpandableView.addView(new HeadingView(mContext, feed.getHeading()));
-                                            for (Info info : feed.getInfoList()) {
-                                                mExpandableView.addView(new InfoView(mContext, info));
-                                            }
-                                        }
-                                        mIsLoadingMore = false;
-                                    }
-                                });
-                            }
-                        }
-                    }
-                };
-        expandableView.addOnScrollListener(mOnScrollListener);
+        System.out.println("hey you");
     }
 }
