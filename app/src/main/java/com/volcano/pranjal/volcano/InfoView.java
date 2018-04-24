@@ -70,4 +70,16 @@ public class InfoView {
 
     }
 
+    @Click(R.id.saveButton)
+    private void onSaveClickListener (){
+        String share_url = "https://www.nytimes.com/2016/12/15/arts/television/whats-on-tv-thursday-nashville-on-cmt-and-jingle-ball-2016.html";
+        Intent sharingIntent = new Intent();
+        sharingIntent.setAction(Intent.ACTION_SEND);
+        sharingIntent.setType("text/html");
+        //sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Title Of The Post");
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, share_url);
+        mContext.startActivity(Intent.createChooser(sharingIntent, "Stirrer"));
+
+    }
+
 }

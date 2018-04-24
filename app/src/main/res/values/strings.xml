@@ -2,6 +2,6 @@
     <string name="app_name">Volcano</string>
     <string name="title_home">Home</string>
     <string name="title_friends">Friends</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Saved</string>
     <string name="title_profile">Profile</string>
 </resources>

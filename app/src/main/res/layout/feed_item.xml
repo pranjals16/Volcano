@@ -57,9 +57,15 @@
             android:textStyle="normal"/>
         <Button
             android:id="@+id/shareButton"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:textSize="8sp"
             android:text="Share" />
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="8sp"
+            android:text="Read Later" />
     </LinearLayout>
 </LinearLayout>
