@@ -21,6 +21,10 @@ public class Info {
     @Expose
     private String time;
 
+    @SerializedName("newsid")
+    @Expose
+    private String newsid;
+
     public String getTitle() {
         return title;
     }
@@ -51,5 +55,13 @@ public class Info {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getNewsid() {
+        return newsid;
+    }
+
+    public void setNewsid(String newsid) {
+        this.newsid = newsid;
     }
 }

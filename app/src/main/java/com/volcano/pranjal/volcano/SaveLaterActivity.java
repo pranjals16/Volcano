@@ -2,6 +2,8 @@ package com.volcano.pranjal.volcano;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,17 +18,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.mindorks.placeholderview.ExpandablePlaceHolderView;
 import com.mindorks.placeholderview.PlaceHolderView;
 
-public class FeedMainActivity extends AppCompatActivity {
+public class SaveLaterActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private ExpandablePlaceHolderView mExpandableView;
     private Context mContext;
-    private ExpandablePlaceHolderView.OnScrollListener mOnScrollListener;
-    private boolean mIsLoadingMore = false;
-    private boolean mNoMoreToLoad = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class FeedMainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(1);
+        MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -44,22 +45,20 @@ public class FeedMainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.navigation_home:
                         mTextMessage.setText(R.string.title_home);
-                        Intent intent0 = new Intent(FeedMainActivity.this, MainActivity.class);
+                        Intent intent0 = new Intent(SaveLaterActivity.this, MainActivity.class);
                         startActivity(intent0);
                         break;
                     case R.id.navigation_dashboard:
+                        Intent intent1 = new Intent(SaveLaterActivity.this, FeedMainActivity.class);
+                        startActivity(intent1);
                         break;
 
                     case R.id.navigation_notifications:
-                        mTextMessage.setText(R.string.title_notifications);
-                        Intent saveIntent = new Intent(FeedMainActivity.this, SaveLaterActivity.class);
-                        startActivity(saveIntent);
-                        overridePendingTransition(0, 0);
                         break;
 
                     case R.id.navigation_profile:
                         mTextMessage.setText(R.string.title_profile);
-                        Intent myIntent = new Intent(FeedMainActivity.this, ProfileActivity.class);
+                        Intent myIntent = new Intent(SaveLaterActivity.this, ProfileActivity.class);
                         startActivity(myIntent);
                         overridePendingTransition(0, 0);
                         break;
@@ -74,8 +73,22 @@ public class FeedMainActivity extends AppCompatActivity {
         for (Feed feed : Utils.loadFeeds(this.getApplicationContext())) {
             mExpandableView.addView(new HeadingView(mContext, feed.getHeading()));
             for (Info info : feed.getInfoList()) {
-                mExpandableView.addView(new InfoView(mContext, info));
-            }
+                if(info.getNewsid().equals(fetchNewsId()))
+                    mExpandableView.addView(new SaveLaterInfoView(mContext, info));
+                }
         }
+    }
+    public String fetchNewsId(){
+        FeedReaderDbHelper mDbHelper = new FeedReaderDbHelper(this.mContext);
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        Cursor c = db.rawQuery("SELECT * FROM " + Constants.USER_SAVE_LATER_TABLE_NAME + " WHERE email='"
+                + user.getEmail() + "'", null);
+        if(c.moveToFirst())
+            return c.getString(2);
+        else
+            return null;
     }
 }

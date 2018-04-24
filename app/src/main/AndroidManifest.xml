@@ -31,6 +31,9 @@
         <activity
             android:name=".FeedMainActivity">
         </activity>
+        <activity
+            android:name=".SaveLaterActivity">
+        </activity>
     </application>
 
 </manifest>

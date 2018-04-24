@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.navigation_notifications:
                         mTextMessage.setText(R.string.title_notifications);
+                        Intent saveIntent = new Intent(MainActivity.this, SaveLaterActivity.class);
+                        startActivity(saveIntent);
+                        overridePendingTransition(0, 0);
                         break;
 
                     case R.id.navigation_profile:
