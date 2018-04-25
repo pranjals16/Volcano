@@ -2,9 +2,16 @@ package com.volcano.pranjal.volcano;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -96,4 +103,12 @@ public class InfoView {
         }
     }
 
+    @Click(R.id.titleTxt)
+    private void onLinkClickListener (){
+        Intent myIntent = new Intent(mContext, WebViewActivity.class);
+        myIntent.putExtra("link","https://www.journaldev.com");
+        mContext.startActivity(myIntent);
+
+    }
 }
+  // Otherwise, the link is not for a page on my site, so launch another Activity that handles URLs

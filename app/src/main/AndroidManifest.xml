@@ -34,6 +34,9 @@
         <activity
             android:name=".SaveLaterActivity">
         </activity>
+        <activity
+            android:name=".WebViewActivity">
+        </activity>
     </application>
 
 </manifest>

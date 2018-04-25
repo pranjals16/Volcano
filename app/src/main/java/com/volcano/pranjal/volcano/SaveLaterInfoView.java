@@ -58,4 +58,10 @@ public class SaveLaterInfoView {
         Glide.with(mContext).load(mInfo.getImageUrl()).into(imageView);
     }
 
+    @Click(R.id.titleTxt)
+    private void onLinkClickListener (){
+        Intent myIntent = new Intent(mContext, WebViewActivity.class);
+        myIntent.putExtra("link","https://www.journaldev.com");
+        mContext.startActivity(myIntent);
+    }
 }
